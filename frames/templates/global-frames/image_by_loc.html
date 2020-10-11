@@ -1,0 +1,48 @@
+{% extends 'global-frames/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Photostream</h2>
+    <hr>
+
+    {% if location_images %}
+    <div class="card-columns">
+
+        {% for image in location_images %}
+
+        <div class="card" data-toggle="modal" data-target="#{{image.id}}">
+            <img src="{{image.image.url}}" alt="{{image.name}}" class="card-img">
+        </div>
+        <div class="modal fade " id="{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xs modal-sm modal-md modal-lg" role="document">
+
+                    <div class="modal-content modalcard">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageheader">{{image.name}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <img src="{{image.image.url}}" alt="{{image.name}}" class="img-fluid">
+                            <p class="imgdesc text-center">{{image.description}}</p>
+                            <span class="btn btn-sm btn-outline-danger">{{image.category}}</span> <a href="/location/{{image.location}}" class="btn btn-sm btn-outline-info">{{image.location}}</a>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-default btn-sm" data-dismiss="modal">Home</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
